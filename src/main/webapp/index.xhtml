@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="title">Home</ui:define>
+
+    <ui:define name="content">
+        <h:form id="greetForm">
+            <h:outputLabel for="name" value="Your name: "/>
+            <h:inputText id="name" value="#{greetingBean.name}"/>
+            <h:commandButton value="Greet" action="#{greetingBean.greet}">
+                <f:ajax execute="name" render="result"/>
+            </h:commandButton>
+            <h:panelGroup id="result" layout="block">
+                <h:outputText styleClass="message" value="#{greetingBean.message}"
+                              rendered="#{not empty greetingBean.message}"/>
+            </h:panelGroup>
+        </h:form>
+
+        <h3>Built with</h3>
+        <ul>
+            <ui:repeat value="#{greetingBean.technologies}" var="tech">
+                <li><h:outputText value="#{tech}"/></li>
+            </ui:repeat>
+        </ul>
+    </ui:define>
+</ui:composition>
